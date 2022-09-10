@@ -6,7 +6,8 @@ import {useNavigate} from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState("");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [message, setMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -14,6 +15,7 @@ function Login() {
             const result = await supabase.auth.signIn({
                 email
             })
+            setMessage('¡Check your email!')
             console.log(result);
         }catch (error){
             console.error(error);
@@ -29,7 +31,8 @@ function Login() {
     return (    
     <header className="App-header">
         <img src={logo} className="App-logo" alt="logo"/>
-        <p>Welcome to Chuck Norris Jokes</p>
+        <p><h2>Welcome to Chuck Norris Jokes</h2></p>
+        <p>Confirm your email address to login.</p>
          <div>
             <form onSubmit={handleSubmit}>
                 <input 
@@ -41,7 +44,8 @@ function Login() {
             <button>
                 LOG IN
             </button>
-            </form>     
+            </form> 
+            <p dangerouslySetInnerHTML={{__html: message}}/>    
         </div>
       </header>
     )
